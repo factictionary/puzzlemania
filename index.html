@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puzzle Mania - Offline Games</title>
+    <meta name="description" content="Two addictive brain games in one app! Water Sort & Number Merge. 100% Offline, Free to Play.">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Playfair+Display:wght@700&display=swap');
+        
+        :root {
+            --primary: #6366f1;
+            --accent: #ec4899;
+            --dark: #1e2937;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e2937 100%);
+            color: #e2e8f0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.3);
+        }
+        
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #6366f1, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: url('https://picsum.photos/id/1015/1920/1080') center/cover no-repeat;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(15,23,42,0.85), rgba(30,41,59,0.75));
+        }
+        
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .hero-text h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero-text .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #a5b4fc;
+        }
+        
+        .badges {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .badge {
+            background: rgba(255,255,255,0.1);
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(90deg, #6366f1, #a855f7);
+            color: white;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.5);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid #64748b;
+        }
+        
+        .hero-image {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .app-mockup {
+            max-width: 320px;
+            border-radius: 40px;
+            border: 12px solid #1e2937;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            overflow: hidden;
+        }
+        
+        .games-section {
+            padding: 6rem 2rem;
+            background: #1e2937;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h2 {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(90deg, #6366f1, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+        }
+        
+        .game-card {
+            background: #334155;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-15px);
+        }
+        
+        .game-card img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+        }
+        
+        .game-info {
+            padding: 1.8rem;
+        }
+        
+        .features {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, #0f172a, #1e2937);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-item {
+            background: rgba(255,255,255,0.05);
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid rgba(99,102,241,0.2);
+        }
+        
+        .download-section {
+            padding: 6rem 2rem;
+            text-align: center;
+            background: #1e2937;
+        }
+        
+        .google-play {
+            display: inline-block;
+            margin-top: 2rem;
+        }
+        
+        footer {
+            background: #0f172a;
+            padding: 4rem 2rem 2rem;
+            text-align: center;
+        }
+        
+        .social-links a {
+            color: #94a3b8;
+            font-size: 1.8rem;
+            margin: 0 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .hero-text h1 {
+                font-size: 2.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <header>
+        <nav>
+            <div class="logo">🧩 Puzzle Mania</div>
+            <div>
+                <a href="#games" style="color:#e2e8f0; margin:0 1rem; text-decoration:none;">Games</a>
+                <a href="#features" style="color:#e2e8f0; margin:0 1rem; text-decoration:none;">Features</a>
+                <a href="https://play.google.com/store/apps/details?id=in.factictionary.puzzle_mania_offline" 
+                   target="_blank" 
+                   class="btn btn-primary" style="padding:0.6rem 1.5rem; font-size:1rem;">Play Now</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>PUZZLE MANIA</h1>
+                <p class="subtitle">Two addictive brain games. 100% Offline. Pure fun.</p>
+                
+                <div class="badges">
+                    <span class="badge">💧 Water Sort</span>
+                    <span class="badge">🔢 Number Merge</span>
+                    <span class="badge">✅ No Internet Needed</span>
+                    <span class="badge">👨‍👩‍👧 Family Friendly</span>
+                </div>
+                
+                <div class="cta-buttons">
+                    <a href="https://play.google.com/store/apps/details?id=in.factictionary.puzzle_mania_offline" 
+                       target="_blank" 
+                       class="btn btn-primary">
+                        🚀 Get on Google Play
+                    </a>
+                    <a href="#games" class="btn btn-secondary">Learn More</a>
+                </div>
+                
+                <p style="margin-top: 2rem; opacity: 0.9;">
+                    <strong>Free to play • Contains ads • Everyone 10+</strong>
+                </p>
+            </div>
+            
+            <div class="hero-image">
+                <div class="app-mockup">
+                    <img src="https://picsum.photos/id/1015/400/700" alt="Puzzle Mania App Screenshot" style="width:100%; display:block;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Games Section -->
+    <section id="games" class="games-section">
+        <div class="container">
+            <h2>Two Games in One</h2>
+            
+            <div class="games-grid">
+                <!-- Water Sort -->
+                <div class="game-card">
+                    <img src="https://picsum.photos/id/237/600/300" alt="Water Sort Puzzle">
+                    <div class="game-info">
+                        <h3>💧 Water Sort</h3>
+                        <p>Sort colored liquids into matching tubes. Simple to learn, endlessly satisfying.</p>
+                        <ul style="margin: 1.5rem 0; padding-left: 1.2rem; opacity: 0.9;">
+                            <li>Infinite levels</li>
+                            <li>Realistic physics</li>
+                            <li>Relaxing gameplay</li>
+                            <li>Hint system</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Number Merge -->
+                <div class="game-card">
+                    <img src="https://picsum.photos/id/201/600/300" alt="Number Merge Game">
+                    <div class="game-info">
+                        <h3>🔢 Number Merge</h3>
+                        <p>Drop tiles and merge identical numbers. Chain reactions and power-ups!</p>
+                        <ul style="margin: 1.5rem 0; padding-left: 1.2rem; opacity: 0.9;">
+                            <li>Endless scoring</li>
+                            <li>Bomb &amp; slow-mo power-ups</li>
+                            <li>Cascade merges</li>
+                            <li>High score chase</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2>Why Players Love It</h2>
+            
+            <div class="features-grid">
+                <div class="feature-item">
+                    <h3>🌍 100% Offline</h3>
+                    <p>Play anywhere — planes, trains, or underground. No WiFi required.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>🎨 Beautiful Design</h3>
+                    <p>Smooth animations, realistic liquid physics, and satisfying sounds.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>📈 Progress Saved</h3>
+                    <p>Automatically saves your progress. Pick up right where you left off.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>🧠 Brain Training</h3>
+                    <p>Relaxing yet challenging puzzles perfect for daily mental workouts.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download CTA -->
+    <section class="download-section">
+        <div class="container">
+            <h2>Ready to Challenge Your Mind?</h2>
+            <p style="font-size: 1.4rem; max-width: 600px; margin: 1.5rem auto;">
+                Download Puzzle Mania now and enjoy hours of relaxing, offline puzzle fun.
+            </p>
+            
+            <a href="https://play.google.com/store/apps/details?id=in.factictionary.puzzle_mania_offline" 
+               target="_blank"
+               class="google-play">
+                <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" 
+                     alt="Get it on Google Play" 
+                     style="height: 70px;">
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p style="margin-bottom: 1.5rem;">
+                <strong>Puzzle Mania - Offline Games</strong><br>
+                by Factictionary
+            </p>
+            
+            <p style="opacity: 0.7; max-width: 600px; margin: 0 auto 2rem;">
+                No account needed • Progress saved locally • Privacy focused
+            </p>
+            
+            <div style="margin: 2rem 0;">
+                <a href="mailto:factictionary@gmail.com" style="color:#a5b4fc;">factictionary@gmail.com</a>
+            </div>
+            
+            <p style="opacity: 0.6; font-size: 0.9rem;">
+                &copy; 2026 Factictionary. All Rights Reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple scroll effect for header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(15, 23, 42, 0.98)';
+            } else {
+                header.style.background = 'rgba(15, 23, 42, 0.95)';
+            }
+        });
+    </script>
+</body>
+</html>
