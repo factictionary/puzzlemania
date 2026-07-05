@@ -1,0 +1,19 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g1" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#06B6D4"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#g1)"/>
+  <!-- Two test tubes -->
+  <rect x="14" y="14" width="14" height="34" rx="6" fill="none" stroke="white" stroke-width="2.5"/>
+  <rect x="34" y="20" width="14" height="28" rx="6" fill="none" stroke="white" stroke-width="2.5"/>
+  <!-- Liquid in first tube -->
+  <rect x="16" y="32" width="10" height="14" rx="3" fill="#FCD34D"/>
+  <rect x="16" y="26" width="10" height="6" fill="#F472B6"/>
+  <!-- Liquid in second tube -->
+  <rect x="36" y="34" width="10" height="12" rx="3" fill="#34D399"/>
+  <!-- Tiny number tile -->
+  <rect x="36" y="20" width="12" height="12" rx="3" fill="#FB923C"/>
+</svg>
